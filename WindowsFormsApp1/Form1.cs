@@ -21,6 +21,14 @@ namespace WindowsFormsApp1
     {
         public int process { get; private set; }
 
+        public static ThreadStart threadStart;
+        public static Thread thread;
+
+        private Form2 myProcessBar = null;//弹出的子窗体(用于显示进度条)
+        private delegate void IncreaseHandle(int nValue);//代理创建
+        private IncreaseHandle myIncrease = null;//声明代理，用于后面的实例化代里
+        private int vMax = 1000;//用于实例化进度条，可以根据自己的需要，自己改变
+
         public Form1()
         {
             InitializeComponent();
@@ -91,8 +99,8 @@ namespace WindowsFormsApp1
             }
 
             //方法一：使用Thread类
-            ThreadStart threadStart = new ThreadStart(doIt);//通过ThreadStart委托告诉子线程执行什么方法　
-            Thread thread = new Thread(threadStart);
+            threadStart = new ThreadStart(doIt);//通过ThreadStart委托告诉子线程执行什么方法　
+            thread = new Thread(threadStart);
             thread.Start();//启动新线程
 
 
@@ -100,6 +108,10 @@ namespace WindowsFormsApp1
 
         private void doIt()
         {
+
+            MethodInvoker mi = new MethodInvoker(ShowProcessBar);
+            this.BeginInvoke(mi);
+
             string fileName = this.textBox1.Text;
             string imagePath = this.textBox2.Text;
 
@@ -152,9 +164,11 @@ namespace WindowsFormsApp1
   
                 Console.WriteLine(process);
 
+                this.Invoke(this.myIncrease, new object[] { process });
+
+
                 this.progressBar1.BeginInvoke(new EventHandler((sender, e) =>
                 {
-                    Console.WriteLine(process * 100);
                     this.progressBar1.Value = process;
                 }), null);
             }
@@ -167,6 +181,19 @@ namespace WindowsFormsApp1
             FileStream out1 = new FileStream(@"c:\simple.docx", FileMode.Create);
             doc.Write(out1);
             out1.Close();
+        }
+
+        private void ShowProcessBar()
+        {
+            myProcessBar = new Form2();
+            myIncrease = new IncreaseHandle(myProcessBar.setValue);
+            myProcessBar.ShowDialog();
+            myProcessBar = null;
+        }
+
+        public static void stopThread()
+        {
+            thread.Abort();
         }
     }
 }
