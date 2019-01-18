@@ -1,0 +1,9 @@
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\x86\Debug\WindowsFormsApp1.exe
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\x86\Debug\WindowsFormsApp1.pdb
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.csproj.ResolveComReference.cache
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.Form1.resources
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.Properties.Resources.resources
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.csproj.GenerateResource.Cache
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.exe
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\x86\Debug\WindowsFormsApp1.pdb
