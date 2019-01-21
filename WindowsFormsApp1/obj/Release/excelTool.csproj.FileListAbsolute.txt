@@ -14,3 +14,4 @@ E:\project\c#\App1\App2\WindowsFormsApp1\obj\Release\excelTool.csproj.GenerateRe
 E:\project\c#\App1\App2\WindowsFormsApp1\obj\Release\excelTool.csproj.CoreCompileInputs.cache
 E:\project\c#\App1\App2\WindowsFormsApp1\obj\Release\excelTool.exe
 E:\project\c#\App1\App2\WindowsFormsApp1\obj\Release\excelTool.pdb
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Release\excelTool.csprojResolveAssemblyReference.cache
