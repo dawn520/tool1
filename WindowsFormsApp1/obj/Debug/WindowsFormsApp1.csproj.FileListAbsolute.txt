@@ -50,3 +50,4 @@ Z:\Documents\project\c#\tool1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 \\Mac\Home\Documents\project\c#\tool1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 Z:\Documents\project\c#\tool1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form2.resources
 \\Mac\Home\Documents\project\c#\tool1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form2.resources
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form2.resources

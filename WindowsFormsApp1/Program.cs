@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace excelTool
 {
     static class Program
     {
@@ -15,8 +15,11 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
 
+            Form1 form1 = new Form1();
+            form1.StartPosition = FormStartPosition.CenterScreen;
+
+            Application.Run(form1);
 
             //           /**
             //* 当前用户是管理员的时候，直接启动应用程序

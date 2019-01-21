@@ -1,0 +1,16 @@
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\NPOI.dll
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\NPOI.OOXML.dll
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\NPOI.OpenXml4Net.dll
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\NPOI.OpenXmlFormats.dll
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.csproj.ResolveComReference.cache
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.csproj.GenerateResource.Cache
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.csproj.CoreCompileInputs.cache
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.Form1.resources
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.Form2.resources
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.Properties.Resources.resources
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\excelTool.exe.config
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\excelTool.exe
+E:\project\c#\App1\App2\WindowsFormsApp1\bin\Debug\excelTool.pdb
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.exe
+E:\project\c#\App1\App2\WindowsFormsApp1\obj\Debug\excelTool.pdb

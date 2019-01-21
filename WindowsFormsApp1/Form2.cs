@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace excelTool
 {
     public partial class Form2 : Form
     {
@@ -22,13 +22,13 @@ namespace WindowsFormsApp1
 
         }
 
-        public void setValue(int value)
+        public void setValue(int value, bool last)
         {
             this.progressBar1.Value = value;
             this.label1.Text = value.ToString() + "%";
-            if (value == 100) {
-                MessageBox.Show("任务已完成！");
+            if (last == true) {
                 this.Close();
+                MessageBox.Show("任务已完成！");
             }
         }
 

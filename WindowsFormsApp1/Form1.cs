@@ -14,8 +14,9 @@ using NPOI.XSSF.UserModel;
 using System.IO;
 using NPOI.XWPF.UserModel;
 using NPOI.Util;
+using System.Globalization;
 
-namespace WindowsFormsApp1
+namespace excelTool
 {
     public partial class Form1 : Form
     {
@@ -25,9 +26,8 @@ namespace WindowsFormsApp1
         public static Thread thread;
 
         private Form2 myProcessBar = null;//弹出的子窗体(用于显示进度条)
-        private delegate void IncreaseHandle(int nValue);//代理创建
+        private delegate void IncreaseHandle(int nValue, bool last);//代理创建
         private IncreaseHandle myIncrease = null;//声明代理，用于后面的实例化代里
-        private int vMax = 1000;//用于实例化进度条，可以根据自己的需要，自己改变
 
         public Form1()
         {
@@ -49,7 +49,16 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.textBox1_Click(sender, e);
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.textBox2_Click(sender, e);
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.textBox3_Click(sender, e);
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -77,15 +86,33 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void textBox3_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "请选择输出文件夹";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (dialog.SelectedPath.Trim() != "")
+                    this.textBox3.Text = dialog.SelectedPath.Trim();
+            }
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         private void button3_Click(object sender, EventArgs e)
         {
             string fileName = this.textBox1.Text;
             string imagePath = this.textBox2.Text;
+            string outPath = this.textBox3.Text;
 
             if (fileName == "")
             {
@@ -95,6 +122,11 @@ namespace WindowsFormsApp1
             if (imagePath == "")
             {
                 MessageBox.Show("请选择图片所在目录！");
+                return;
+            }
+            if (outPath == "")
+            {
+                MessageBox.Show("请选择输出目录！");
                 return;
             }
 
@@ -109,15 +141,28 @@ namespace WindowsFormsApp1
         private void doIt()
         {
 
-            MethodInvoker mi = new MethodInvoker(ShowProcessBar);
-            this.BeginInvoke(mi);
-
             string fileName = this.textBox1.Text;
             string imagePath = this.textBox2.Text;
+            string outPath = this.textBox3.Text;
+
+            bool last = false;
 
             IWorkbook workbook = null;  //新建IWorkbook对象  
 
-            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            FileStream fileStream = null;
+            try
+            {
+                fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("出现错误：" + exception.Message);
+                return;
+            }
+
+            MethodInvoker mi = new MethodInvoker(ShowProcessBar);
+            this.BeginInvoke(mi);
+
             if (fileName.IndexOf(".xlsx") > 0) // 2007版本  
             {
                 workbook = new XSSFWorkbook(fileStream);  //xlsx数据读入workbook  
@@ -131,7 +176,7 @@ namespace WindowsFormsApp1
 
             ISheet sheet = workbook.GetSheetAt(0);  //获取第一个工作表  
             IRow row;// = sheet.GetRow(0);            //新建当前工作表行数据  
-            for (int i = 1; i < sheet.LastRowNum; i++)  //对工作表每一行  
+            for (int i = 1; i <= sheet.LastRowNum; i++)  //对工作表每一行  
             {
                 row = sheet.GetRow(i);   //row读入第i行数据  
                 if (row != null)
@@ -158,27 +203,40 @@ namespace WindowsFormsApp1
                     XWPFRun r2 = p2.CreateRun();
                     r2.AddPicture(image, 5, imagePath + "/" + pictureaName, Units.ToEMU(500), Units.ToEMU(500));
                     r2.AddBreak();
+                    if (i == sheet.LastRowNum)
+                    {
+                        last = true;
+                    }
                 }
                 double d = (double) ((double)i / (double)sheet.LastRowNum) * 100;
-                process = (int)Math.Ceiling(Convert.ToDouble(d));
+                process = (int)Math.Floor(Convert.ToDouble(d));
   
                 Console.WriteLine(process);
 
-                this.Invoke(this.myIncrease, new object[] { process });
+                this.Invoke(this.myIncrease, new object[] { process, last });
 
 
-                this.progressBar1.BeginInvoke(new EventHandler((sender, e) =>
-                {
-                    this.progressBar1.Value = process;
-                }), null);
+                //this.progressBar1.BeginInvoke(new EventHandler((sender, e) =>
+                //{
+                //    this.progressBar1.Value = process;
+                //}), null);
             }
             Console.ReadLine();
             fileStream.Close();
             workbook.Close();
 
-            MessageBox.Show("ha");
+            string tradeTime = DateTime.Now.ToString("yyyyMMddHHmmss", DateTimeFormatInfo.InvariantInfo);
+            FileStream out1 = null;
+            try
+            {
+                out1 = new FileStream(@outPath +"/" + tradeTime + ".docx", FileMode.Create);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("出现错误：" + exception.Message);
+                return;
+            }
 
-            FileStream out1 = new FileStream(@"c:\simple.docx", FileMode.Create);
             doc.Write(out1);
             out1.Close();
         }
@@ -186,6 +244,8 @@ namespace WindowsFormsApp1
         private void ShowProcessBar()
         {
             myProcessBar = new Form2();
+            myProcessBar.StartPosition = FormStartPosition.CenterScreen;
+
             myIncrease = new IncreaseHandle(myProcessBar.setValue);
             myProcessBar.ShowDialog();
             myProcessBar = null;
@@ -195,5 +255,7 @@ namespace WindowsFormsApp1
         {
             thread.Abort();
         }
+
+ 
     }
 }
